@@ -4,15 +4,37 @@ public class Lists1Exercises {
       * to change. */
     public static IntList incrList(IntList L, int x) {
         /* Your code here. */
-        return L;        
+        IntList Q = new IntList(L.first, L.rest);
+        if (Q.rest == null){
+            Q.first += x;
+            return Q;
+        }
+        else {
+            Q.first += x;
+            Q.rest = incrList(Q.rest, x);
+            return Q;
+        }
+    /** The more concise solution 
+        if (L == null){
+            return null;
+        }
+        IntList Q = new IntList(L.first+x, null);
+        Q.rest = incrList(L.rest, x);
+        return Q; */
+                
     }
 
     /** Returns an IntList identical to L, but with
       * each element incremented by x. Not allowed to use
       * the 'new' keyword. */
     public static IntList dincrList(IntList L, int x) {
-        /* Your code here. */
-        return L;
+        IntList Q = L;
+        if (Q == null){
+            return null;
+        } 
+        Q.first += 1;
+        Q.rest = dincrList(Q.rest, x);
+        return Q;
     }
 
     public static void main(String[] args) {
@@ -21,7 +43,10 @@ public class Lists1Exercises {
         L.rest.rest = new IntList(9, null);
 
         System.out.println(L.size());
-        System.out.println(L.iterativeSize());
+        System.out.println(incrList(L, 3));
+        System.out.println(L);
+        System.out.println(dincrList(L, 3));
+        System.out.println(L);
 
         // Test your answers by uncommenting. Or copy and paste the
         // code for incrList and dincrList into IntList.java and
